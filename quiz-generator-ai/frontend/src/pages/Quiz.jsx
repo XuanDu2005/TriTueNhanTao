@@ -3,10 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Send, AlertCircle } from 'lucide-react';
 import { getQuestions, submitQuiz } from '../services/api';
 import QuestionCard from '../components/QuestionCard';
+import { useI18n } from '../context/I18nContext';
 
 export default function Quiz() {
   const { docId } = useParams();
   const navigate = useNavigate();
+  const { t } = useI18n();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,14 +23,14 @@ export default function Quiz() {
         const data = await getQuestions(parseInt(docId));
         setQuestions(data.questions || []);
       } catch (err) {
-        const msg = err.response?.data?.error || err.message || 'Failed to load questions';
+        const msg = err.response?.data?.error || err.message || t('quiz.errors.failedToLoad');
         setError(msg);
       } finally {
         setLoading(false);
       }
     };
     loadQuestions();
-  }, [docId]);
+  }, [docId, t]);
 
   const handleSelect = (qId, answer) => {
     setAnswers((prev) => ({ ...prev, [qId]: answer }));
@@ -49,7 +51,7 @@ export default function Quiz() {
       const result = await submitQuiz(parseInt(docId), answerMap);
       navigate(`/result/${result.resultId}`);
     } catch (err) {
-      const msg = err.response?.data?.error || err.message || 'Submission failed';
+      const msg = err.response?.data?.error || err.message || t('quiz.errors.submissionFailed');
       setError(msg);
       setSubmitting(false);
     }
@@ -59,7 +61,7 @@ export default function Quiz() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 flex flex-col items-center gap-4">
         <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" />
-        <p className="text-slate-500 font-medium">Loading questions...</p>
+        <p className="text-slate-500 font-medium">{t('quiz.loading')}</p>
       </div>
     );
   }
@@ -71,10 +73,10 @@ export default function Quiz() {
           <div className="w-14 h-14 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-4">
             <AlertCircle className="w-7 h-7 text-red-600" />
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Error Loading Quiz</h2>
+          <h2 className="text-xl font-bold text-slate-800 mb-2">{t('quiz.errors.errorLoading')}</h2>
           <p className="text-slate-500 mb-6">{error}</p>
           <button onClick={() => navigate('/')} className="btn-primary">
-            Go Home
+            {t('quiz.goHome')}
           </button>
         </div>
       </div>
@@ -85,10 +87,10 @@ export default function Quiz() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
         <div className="card py-12">
-          <h2 className="text-xl font-bold text-slate-800 mb-2">No Questions Found</h2>
-          <p className="text-slate-500 mb-6">Generate a quiz first for this document.</p>
+          <h2 className="text-xl font-bold text-slate-800 mb-2">{t('quiz.errors.noQuestions')}</h2>
+          <p className="text-slate-500 mb-6">{t('quiz.errors.generateFirst')}</p>
           <button onClick={() => navigate(`/generate/${docId}`)} className="btn-primary">
-            Generate Quiz
+            {t('quiz.errors.generateQuiz')}
           </button>
         </div>
       </div>
@@ -103,14 +105,14 @@ export default function Quiz() {
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-800">Quiz</h1>
+          <h1 className="text-xl font-bold text-slate-800">{t('quiz.title')}</h1>
           <p className="text-sm text-slate-500">
-            Question {currentIndex + 1} of {questions.length}
+            {t('quiz.questionOf', { current: currentIndex + 1, total: questions.length })}
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm font-semibold text-primary-600">{answeredCount} answered</p>
-          <p className="text-xs text-slate-400">{questions.length - answeredCount} remaining</p>
+          <p className="text-sm font-semibold text-primary-600">{t('quiz.answered', { count: answeredCount })}</p>
+          <p className="text-xs text-slate-400">{t('quiz.remaining', { count: questions.length - answeredCount })}</p>
         </div>
       </div>
 
@@ -137,7 +139,7 @@ export default function Quiz() {
           className="btn-secondary flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="w-4 h-4" />
-          Previous
+          {t('quiz.previous')}
         </button>
 
         {currentIndex < questions.length - 1 ? (
@@ -145,7 +147,7 @@ export default function Quiz() {
             onClick={() => setCurrentIndex((i) => Math.min(questions.length - 1, i + 1))}
             className="btn-secondary flex items-center gap-1.5"
           >
-            Next
+            {t('quiz.next')}
             <ChevronRight className="w-4 h-4" />
           </button>
         ) : (
@@ -155,7 +157,7 @@ export default function Quiz() {
             className="btn-primary flex items-center gap-1.5 disabled:opacity-60"
           >
             <Send className="w-4 h-4" />
-            Submit Quiz
+            {t('quiz.submitQuiz')}
           </button>
         )}
       </div>
@@ -170,24 +172,24 @@ export default function Quiz() {
       {showConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl animate-fade-in">
-            <h3 className="text-lg font-bold text-slate-800 mb-2">Submit Quiz?</h3>
+            <h3 className="text-lg font-bold text-slate-800 mb-2">{t('quiz.confirmSubmit')}</h3>
             <p className="text-sm text-slate-500 mb-6">
               {allAnswered
-                ? 'You have answered all questions. Submit now?'
-                : `You have answered ${answeredCount} of ${questions.length} questions. Submit anyway?`}
+                ? t('quiz.allAnswered')
+                : t('quiz.partialAnswered', { answered: answeredCount, total: questions.length })}
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowConfirm(false)}
                 className="btn-secondary flex-1"
               >
-                Review
+                {t('quiz.review')}
               </button>
               <button
                 onClick={handleSubmit}
                 className="btn-primary flex-1"
               >
-                Submit
+                {t('quiz.submit')}
               </button>
             </div>
           </div>
