@@ -2,18 +2,12 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Settings, Sparkles, AlertCircle } from 'lucide-react';
 import { generateQuiz } from '../services/api';
-
-const difficulties = [
-  { value: 'easy', label: 'Easy', description: 'Basic comprehension', color: 'emerald', bgColor: 'bg-emerald-50', borderColor: 'border-emerald-200', textColor: 'text-emerald-700', activeBg: 'bg-emerald-500', activeBorder: 'border-emerald-500' },
-  { value: 'medium', label: 'Medium', description: 'Understanding required', color: 'amber', bgColor: 'bg-amber-50', borderColor: 'border-amber-200', textColor: 'text-amber-700', activeBg: 'bg-amber-500', activeBorder: 'border-amber-500' },
-  { value: 'hard', label: 'Hard', description: 'Deep analysis', color: 'red', bgColor: 'bg-red-50', borderColor: 'border-red-200', textColor: 'text-red-700', activeBg: 'bg-red-500', activeBorder: 'border-red-500' },
-];
-
-const questionCounts = [5, 10, 20];
+import { useI18n } from '../context/I18nContext';
 
 export default function GenerateQuiz() {
   const { docId } = useParams();
   const navigate = useNavigate();
+  const { t } = useI18n();
   const [difficulty, setDifficulty] = useState('medium');
   const [count, setCount] = useState(10);
   const [status, setStatus] = useState('idle');
@@ -23,14 +17,14 @@ export default function GenerateQuiz() {
   const handleGenerate = async () => {
     setStatus('generating');
     setError('');
-    setProgress('Preparing your quiz...');
+    setProgress(t('generateQuiz.stages.preparing'));
 
     const stages = [
-      'Analyzing document content...',
-      'Extracting key concepts...',
-      'Generating questions with Gemini AI...',
-      'Creating explanations...',
-      'Finalizing your quiz...',
+      t('generateQuiz.stages.analyzing'),
+      t('generateQuiz.stages.extracting'),
+      t('generateQuiz.stages.generating'),
+      t('generateQuiz.stages.creatingExplanations'),
+      t('generateQuiz.stages.finalizing'),
     ];
 
     let stageIndex = 0;
@@ -47,12 +41,19 @@ export default function GenerateQuiz() {
       navigate(`/quiz/${docId}`);
     } catch (err) {
       clearInterval(stageInterval);
-      const msg = err.response?.data?.error || err.message || 'Generation failed';
+      const msg = err.response?.data?.error || err.message || t('generateQuiz.errors.failed');
       setError(msg);
       setStatus('error');
     }
   };
 
+  const difficulties = [
+    { value: 'easy', label: t('generateQuiz.difficultyEasy'), description: t('generateQuiz.difficultyEasyDesc'), color: 'emerald', bgColor: 'bg-emerald-50', borderColor: 'border-emerald-200', textColor: 'text-emerald-700', activeBg: 'bg-emerald-500', activeBorder: 'border-emerald-500' },
+    { value: 'medium', label: t('generateQuiz.difficultyMedium'), description: t('generateQuiz.difficultyMediumDesc'), color: 'amber', bgColor: 'bg-amber-50', borderColor: 'border-amber-200', textColor: 'text-amber-700', activeBg: 'bg-amber-500', activeBorder: 'border-amber-500' },
+    { value: 'hard', label: t('generateQuiz.difficultyHard'), description: t('generateQuiz.difficultyHardDesc'), color: 'red', bgColor: 'bg-red-50', borderColor: 'border-red-200', textColor: 'text-red-700', activeBg: 'bg-red-500', activeBorder: 'border-red-500' },
+  ];
+
+  const questionCounts = [5, 10, 20];
   const selectedDiff = difficulties.find((d) => d.value === difficulty);
 
   return (
@@ -61,13 +62,13 @@ export default function GenerateQuiz() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-100 rounded-2xl mb-4">
           <Settings className="w-7 h-7 text-primary-600" />
         </div>
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-2">Configure Your Quiz</h1>
-        <p className="text-slate-500">Customize difficulty and question count</p>
+        <h1 className="text-3xl font-extrabold text-slate-900 mb-2">{t('generateQuiz.title')}</h1>
+        <p className="text-slate-500">{t('generateQuiz.subtitle')}</p>
       </div>
 
       <div className="card space-y-8 animate-fade-in" style={{ animationDelay: '100ms' }}>
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-3">Select Difficulty</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-3">{t('generateQuiz.selectDifficulty')}</label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {difficulties.map((d) => (
               <button
@@ -88,7 +89,7 @@ export default function GenerateQuiz() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-3">Number of Questions</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-3">{t('generateQuiz.numberOfQuestions')}</label>
           <div className="flex gap-3">
             {questionCounts.map((n) => (
               <button
@@ -107,18 +108,18 @@ export default function GenerateQuiz() {
         </div>
 
         <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
-          <h3 className="text-sm font-semibold text-slate-700 mb-3">Quiz Summary</h3>
+          <h3 className="text-sm font-semibold text-slate-700 mb-3">{t('generateQuiz.quizSummary')}</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-slate-500">Document ID</span>
+              <span className="text-slate-500">{t('generateQuiz.documentId')}</span>
               <span className="font-medium text-slate-700">#{docId}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500">Difficulty</span>
+              <span className="text-slate-500">{t('generateQuiz.difficulty')}</span>
               <span className={`font-semibold ${selectedDiff.textColor}`}>{selectedDiff.label}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500">Questions</span>
+              <span className="text-slate-500">{t('generateQuiz.questions')}</span>
               <span className="font-semibold text-slate-700">{count}</span>
             </div>
           </div>
@@ -128,7 +129,7 @@ export default function GenerateQuiz() {
           <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
             <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-red-700">Generation Failed</p>
+              <p className="text-sm font-semibold text-red-700">{t('generateQuiz.errors.generationFailed')}</p>
               <p className="text-sm text-red-600 mt-0.5">{error}</p>
             </div>
           </div>
@@ -150,7 +151,7 @@ export default function GenerateQuiz() {
             className="w-full btn-primary flex items-center justify-center gap-2"
           >
             <Sparkles className="w-5 h-5" />
-            Generate Quiz with AI
+            {t('generateQuiz.generateBtn')}
           </button>
         )}
       </div>

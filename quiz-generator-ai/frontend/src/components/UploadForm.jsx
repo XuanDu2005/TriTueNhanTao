@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Upload, FileText, CheckCircle, AlertCircle } from 'lucide-react';
 import { uploadPDF } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useI18n } from '../context/I18nContext';
 
 const MAX_SIZE_MB = 20;
 
@@ -14,11 +15,12 @@ export default function UploadForm() {
   const [documentId, setDocumentId] = useState(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const { t } = useI18n();
 
   const validateFile = (f) => {
-    if (!f) return 'No file selected';
-    if (f.type !== 'application/pdf') return 'Only PDF files are allowed';
-    if (f.size > MAX_SIZE_MB * 1024 * 1024) return `File too large. Maximum size is ${MAX_SIZE_MB}MB`;
+    if (!f) return t('upload.errors.noFile');
+    if (f.type !== 'application/pdf') return t('upload.errors.notPdf');
+    if (f.size > MAX_SIZE_MB * 1024 * 1024) return t('upload.errors.fileTooLarge', { size: MAX_SIZE_MB });
     return null;
   };
 
@@ -51,7 +53,7 @@ export default function UploadForm() {
       setDocumentId(data.documentId);
       setStatus('success');
     } catch (err) {
-      const msg = err.response?.data?.error || err.message || 'Upload failed';
+      const msg = err.response?.data?.error || err.message || t('upload.errors.uploadFailed');
       setError(msg);
       setStatus('error');
     }
@@ -100,7 +102,7 @@ export default function UploadForm() {
               <div className="w-16 h-16 mx-auto bg-primary-100 rounded-full flex items-center justify-center">
                 <Upload className="w-8 h-8 text-primary-600 animate-bounce" />
               </div>
-              <p className="text-sm font-medium text-slate-600">Uploading...</p>
+              <p className="text-sm font-medium text-slate-600">{t('upload.uploading')}</p>
               <div className="w-64 mx-auto h-2 bg-slate-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-primary-600 rounded-full transition-all duration-300"
@@ -134,9 +136,9 @@ export default function UploadForm() {
               ) : (
                 <div>
                   <p className="font-semibold text-slate-700 mb-1">
-                    Drag PDF here or click to browse
+                    {t('upload.dragOrClick')}
                   </p>
-                  <p className="text-sm text-slate-400">Maximum file size: {MAX_SIZE_MB} MB</p>
+                  <p className="text-sm text-slate-400">{t('upload.maxSize', { size: MAX_SIZE_MB })}</p>
                   {error && (
                     <div className="mt-3 flex items-center justify-center gap-1.5 text-red-600">
                       <AlertCircle className="w-4 h-4" />
@@ -154,7 +156,7 @@ export default function UploadForm() {
             <CheckCircle className="w-8 h-8 text-emerald-600" />
           </div>
           <div>
-            <p className="font-bold text-emerald-800 text-lg">Upload Successful!</p>
+            <p className="font-bold text-emerald-800 text-lg">{t('upload.uploadSuccess')}</p>
             <p className="text-sm text-emerald-600 mt-1">{file?.name}</p>
           </div>
         </div>
@@ -164,12 +166,12 @@ export default function UploadForm() {
         <div className="mt-4 flex gap-3">
           {file && !error && (
             <button onClick={handleUpload} className="btn-primary flex-1">
-              Generate Quiz
+              {t('upload.generateQuiz')}
             </button>
           )}
           {file && (
             <button onClick={handleReset} className="btn-secondary">
-              Reset
+              {t('upload.reset')}
             </button>
           )}
         </div>
@@ -181,10 +183,10 @@ export default function UploadForm() {
             onClick={() => navigate(`/generate/${documentId}`)}
             className="btn-primary flex-1"
           >
-            Continue to Generate Quiz
+            {t('upload.continueToGenerate')}
           </button>
           <button onClick={handleReset} className="btn-secondary">
-            Upload Another
+            {t('upload.uploadAnother')}
           </button>
         </div>
       )}

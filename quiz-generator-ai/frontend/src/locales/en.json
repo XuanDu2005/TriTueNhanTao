@@ -1,0 +1,129 @@
+{
+  "nav": {
+    "home": "Home",
+    "uploadPdf": "Upload PDF"
+  },
+  "home": {
+    "poweredBy": "Powered by Google Gemini AI",
+    "title": "Turn PDFs into",
+    "titleHighlight": "Smart Quizzes",
+    "subtitle": "Upload your learning materials and let AI generate practice quizzes with explanations. Perfect for students, professionals, and lifelong learners.",
+    "uploadSection": "Upload Your PDF",
+    "feature1": {
+      "title": "Upload PDF",
+      "description": "Upload any PDF learning material up to 20MB. Works with textbooks, notes, and research papers."
+    },
+    "feature2": {
+      "title": "AI-Generated Quizzes",
+      "description": "Gemini AI reads your document and creates tailored multiple-choice questions with explanations."
+    },
+    "feature3": {
+      "title": "Adaptive Difficulty",
+      "description": "Choose Easy, Medium, or Hard difficulty. Generate 5, 10, or 20 questions per quiz."
+    },
+    "feature4": {
+      "title": "Instant Results",
+      "description": "Get your score immediately with detailed review showing correct answers and AI explanations."
+    }
+  },
+  "upload": {
+    "dragOrClick": "Drag PDF here or click to browse",
+    "maxSize": "Maximum file size: {size} MB",
+    "uploading": "Uploading...",
+    "uploadSuccess": "Upload Successful!",
+    "generateQuiz": "Generate Quiz",
+    "reset": "Reset",
+    "continueToGenerate": "Continue to Generate Quiz",
+    "uploadAnother": "Upload Another",
+    "errors": {
+      "noFile": "No file selected",
+      "notPdf": "Only PDF files are allowed",
+      "fileTooLarge": "File too large. Maximum size is {size}MB",
+      "uploadFailed": "Upload failed"
+    }
+  },
+  "generateQuiz": {
+    "title": "Configure Your Quiz",
+    "subtitle": "Customize difficulty and question count",
+    "selectDifficulty": "Select Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyEasyDesc": "Basic comprehension",
+    "difficultyMedium": "Medium",
+    "difficultyMediumDesc": "Understanding required",
+    "difficultyHard": "Hard",
+    "difficultyHardDesc": "Deep analysis",
+    "numberOfQuestions": "Number of Questions",
+    "quizSummary": "Quiz Summary",
+    "documentId": "Document ID",
+    "difficulty": "Difficulty",
+    "questions": "Questions",
+    "generateBtn": "Generate Quiz with AI",
+    "stages": {
+      "preparing": "Preparing your quiz...",
+      "analyzing": "Analyzing document content...",
+      "extracting": "Extracting key concepts...",
+      "generating": "Generating questions with Gemini AI...",
+      "creatingExplanations": "Creating explanations...",
+      "finalizing": "Finalizing your quiz..."
+    },
+    "errors": {
+      "generationFailed": "Generation Failed",
+      "failed": "Generation failed"
+    }
+  },
+  "quiz": {
+    "title": "Quiz",
+    "loading": "Loading questions...",
+    "questionOf": "Question {current} of {total}",
+    "answered": "{count} answered",
+    "remaining": "{count} remaining",
+    "previous": "Previous",
+    "next": "Next",
+    "submitQuiz": "Submit Quiz",
+    "confirmSubmit": "Submit Quiz?",
+    "allAnswered": "You have answered all questions. Submit now?",
+    "partialAnswered": "You have answered {answered} of {total} questions. Submit anyway?",
+    "review": "Review",
+    "submit": "Submit",
+    "errors": {
+      "errorLoading": "Error Loading Quiz",
+      "failedToLoad": "Failed to load questions",
+      "noQuestions": "No Questions Found",
+      "generateFirst": "Generate a quiz first for this document.",
+      "generateQuiz": "Generate Quiz",
+      "submissionFailed": "Submission failed"
+    },
+    "goHome": "Go Home"
+  },
+  "result": {
+    "title": "Quiz Complete!",
+    "subtitle": "Here's how you performed",
+    "home": "Home",
+    "newQuiz": "New Quiz",
+    "questionReview": "Question Review",
+    "correct": "Correct",
+    "wrong": "Wrong",
+    "skipped": "Skipped",
+    "loading": "Loading results...",
+    "errors": {
+      "error": "Error",
+      "couldNotLoad": "Could not load result",
+      "failedToLoad": "Failed to load result",
+      "goHome": "Go Home"
+    }
+  },
+  "questionCard": {
+    "explanation": "Explanation"
+  },
+  "scoreCard": {
+    "correct": "Correct",
+    "wrong": "Wrong",
+    "excellent": "Excellent work!",
+    "goodEffort": "Good effort! Keep practicing.",
+    "keepStudying": "Keep studying! You'll improve."
+  },
+  "languages": {
+    "en": "English",
+    "vi": "Tiếng Việt"
+  }
+}

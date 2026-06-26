@@ -1,6 +1,8 @@
 import { CheckCircle, XCircle } from 'lucide-react';
+import { useI18n } from '../context/I18nContext';
 
 export default function ScoreCard({ score, total, correct, wrong, percentage }) {
+  const { t } = useI18n();
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
@@ -15,6 +17,12 @@ export default function ScoreCard({ score, total, correct, wrong, percentage }) 
     if (percentage >= 80) return '#10b981';
     if (percentage >= 60) return '#f59e0b';
     return '#ef4444';
+  };
+
+  const getMessage = () => {
+    if (percentage >= 80) return t('scoreCard.excellent');
+    if (percentage >= 60) return t('scoreCard.goodEffort');
+    return t('scoreCard.keepStudying');
   };
 
   return (
@@ -59,7 +67,7 @@ export default function ScoreCard({ score, total, correct, wrong, percentage }) 
           </div>
           <div>
             <p className="text-lg font-bold text-slate-800">{correct}</p>
-            <p className="text-xs text-slate-500">Correct</p>
+            <p className="text-xs text-slate-500">{t('scoreCard.correct')}</p>
           </div>
         </div>
 
@@ -69,21 +77,18 @@ export default function ScoreCard({ score, total, correct, wrong, percentage }) 
           </div>
           <div>
             <p className="text-lg font-bold text-slate-800">{wrong}</p>
-            <p className="text-xs text-slate-500">Wrong</p>
+            <p className="text-xs text-slate-500">{t('scoreCard.wrong')}</p>
           </div>
         </div>
       </div>
 
       <div className="text-center">
-        {percentage >= 80 && (
-          <p className="text-emerald-700 font-semibold text-sm">Excellent work!</p>
-        )}
-        {percentage >= 60 && percentage < 80 && (
-          <p className="text-amber-700 font-semibold text-sm">Good effort! Keep practicing.</p>
-        )}
-        {percentage < 60 && (
-          <p className="text-red-700 font-semibold text-sm">Keep studying! You'll improve.</p>
-        )}
+        <p className={`font-semibold text-sm ${
+          percentage >= 80 ? 'text-emerald-700' : 
+          percentage >= 60 ? 'text-amber-700' : 'text-red-700'
+        }`}>
+          {getMessage()}
+        </p>
       </div>
     </div>
   );

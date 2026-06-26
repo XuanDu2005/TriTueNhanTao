@@ -3,10 +3,14 @@ FROM node:21-alpine AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm ci
+
+# Install all dependencies
+RUN npm install
 
 COPY . .
-RUN npm run build
+
+# Use npx to run vite build
+RUN npx vite build
 
 
 FROM nginx:alpine

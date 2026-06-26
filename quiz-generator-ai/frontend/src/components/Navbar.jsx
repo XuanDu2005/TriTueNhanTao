@@ -1,15 +1,23 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Brain, Menu, X } from 'lucide-react';
+import { Brain, Menu, X, Globe } from 'lucide-react';
 import { useState } from 'react';
-
-const navLinks = [
-  { path: '/', label: 'Home' },
-  { path: '/upload', label: 'Upload PDF' },
-];
+import { useI18n } from '../context/I18nContext';
 
 export default function Navbar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const { locale, changeLocale, t } = useI18n();
+
+  const navLinks = [
+    { path: '/', label: t('nav.home') },
+    { path: '/upload', label: t('nav.uploadPdf') },
+  ];
+
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'vi', label: 'Tiếng Việt' },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
@@ -38,6 +46,35 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            <div className="relative ml-2">
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="uppercase">{locale}</span>
+              </button>
+
+              {langOpen && (
+                <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-slate-200 py-1 animate-fade-in">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        changeLocale(lang.code);
+                        setLangOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-50 transition-colors ${
+                        locale === lang.code ? 'text-primary-600 font-semibold' : 'text-slate-600'
+                      }`}
+                    >
+                      {lang.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <button
@@ -64,6 +101,27 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <div className="px-4 py-2">
+              <p className="text-xs text-slate-400 mb-2">Language</p>
+              <div className="flex gap-2">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      changeLocale(lang.code);
+                      setMobileOpen(false);
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                      locale === lang.code
+                        ? 'bg-primary-100 text-primary-700'
+                        : 'bg-slate-100 text-slate-600'
+                    }`}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>

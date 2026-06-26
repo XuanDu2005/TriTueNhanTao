@@ -1,0 +1,129 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "uploadPdf": "Tải lên PDF"
+  },
+  "home": {
+    "poweredBy": "Được hỗ trợ bởi Google Gemini AI",
+    "title": "Biến PDF thành",
+    "titleHighlight": "Bài kiểm tra thông minh",
+    "subtitle": "Tải lên tài liệu học tập và để AI tạo các bài kiểm tra thực hành kèm giải thích. Hoàn hảo cho sinh viên, chuyên gia và người học suốt đời.",
+    "uploadSection": "Tải lên PDF của bạn",
+    "feature1": {
+      "title": "Tải lên PDF",
+      "description": "Tải lên bất kỳ tài liệu học tập PDF nào có dung lượng tối đa 20MB. Phù hợp với sách giáo khoa, ghi chú và bài nghiên cứu."
+    },
+    "feature2": {
+      "title": "Câu hỏi do AI tạo",
+      "description": "Gemini AI đọc tài liệu của bạn và tạo các câu hỏi trắc nghiệm phù hợp kèm giải thích."
+    },
+    "feature3": {
+      "title": "Độ khó thích ứng",
+      "description": "Chọn độ khó Dễ, Trung bình hoặc Khó. Tạo 5, 10 hoặc 20 câu hỏi mỗi bài kiểm tra."
+    },
+    "feature4": {
+      "title": "Kết quả tức thì",
+      "description": "Nhận điểm số ngay lập tức với bài đánh giá chi tiết hiển thị đáp án đúng và giải thích từ AI."
+    }
+  },
+  "upload": {
+    "dragOrClick": "Kéo PDF vào đây hoặc nhấn để duyệt",
+    "maxSize": "Dung lượng tối đa: {size} MB",
+    "uploading": "Đang tải lên...",
+    "uploadSuccess": "Tải lên thành công!",
+    "generateQuiz": "Tạo bài kiểm tra",
+    "reset": "Đặt lại",
+    "continueToGenerate": "Tiếp tục tạo bài kiểm tra",
+    "uploadAnother": "Tải lên khác",
+    "errors": {
+      "noFile": "Chưa chọn tệp",
+      "notPdf": "Chỉ cho phép tệp PDF",
+      "fileTooLarge": "Tệp quá lớn. Dung lượng tối đa là {size}MB",
+      "uploadFailed": "Tải lên thất bại"
+    }
+  },
+  "generateQuiz": {
+    "title": "Cấu hình bài kiểm tra",
+    "subtitle": "Tùy chỉnh độ khó và số câu hỏi",
+    "selectDifficulty": "Chọn độ khó",
+    "difficultyEasy": "Dễ",
+    "difficultyEasyDesc": "Hiểu cơ bản",
+    "difficultyMedium": "Trung bình",
+    "difficultyMediumDesc": "Cần hiểu biết",
+    "difficultyHard": "Khó",
+    "difficultyHardDesc": "Phân tích sâu",
+    "numberOfQuestions": "Số câu hỏi",
+    "quizSummary": "Tóm tắt bài kiểm tra",
+    "documentId": "ID tài liệu",
+    "difficulty": "Độ khó",
+    "questions": "Câu hỏi",
+    "generateBtn": "Tạo bài kiểm tra với AI",
+    "stages": {
+      "preparing": "Đang chuẩn bị bài kiểm tra của bạn...",
+      "analyzing": "Đang phân tích nội dung tài liệu...",
+      "extracting": "Đang trích xuất các khái niệm chính...",
+      "generating": "Đang tạo câu hỏi với Gemini AI...",
+      "creatingExplanations": "Đang tạo giải thích...",
+      "finalizing": "Đang hoàn thiện bài kiểm tra của bạn..."
+    },
+    "errors": {
+      "generationFailed": "Tạo thất bại",
+      "failed": "Tạo bài kiểm tra thất bại"
+    }
+  },
+  "quiz": {
+    "title": "Bài kiểm tra",
+    "loading": "Đang tải câu hỏi...",
+    "questionOf": "Câu hỏi {current} trong {total}",
+    "answered": "{count} đã trả lời",
+    "remaining": "{count} còn lại",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "submitQuiz": "Nộp bài",
+    "confirmSubmit": "Nộp bài?",
+    "allAnswered": "Bạn đã trả lời tất cả các câu hỏi. Nộp ngay?",
+    "partialAnswered": "Bạn đã trả lời {answered} trong {total} câu hỏi. Nộp bài?",
+    "review": "Xem lại",
+    "submit": "Nộp",
+    "errors": {
+      "errorLoading": "Lỗi khi tải bài kiểm tra",
+      "failedToLoad": "Không thể tải câu hỏi",
+      "noQuestions": "Không tìm thấy câu hỏi",
+      "generateFirst": "Tạo bài kiểm tra trước cho tài liệu này.",
+      "generateQuiz": "Tạo bài kiểm tra",
+      "submissionFailed": "Nộp bài thất bại"
+    },
+    "goHome": "Về trang chủ"
+  },
+  "result": {
+    "title": "Hoàn thành bài kiểm tra!",
+    "subtitle": "Đây là kết quả của bạn",
+    "home": "Trang chủ",
+    "newQuiz": "Bài mới",
+    "questionReview": "Xem lại câu hỏi",
+    "correct": "Đúng",
+    "wrong": "Sai",
+    "skipped": "Bỏ qua",
+    "loading": "Đang tải kết quả...",
+    "errors": {
+      "error": "Lỗi",
+      "couldNotLoad": "Không thể tải kết quả",
+      "failedToLoad": "Không thể tải kết quả",
+      "goHome": "Về trang chủ"
+    }
+  },
+  "questionCard": {
+    "explanation": "Giải thích"
+  },
+  "scoreCard": {
+    "correct": "Đúng",
+    "wrong": "Sai",
+    "excellent": "Xuất sắc!",
+    "goodEffort": "Cố gắng lên! Tiếp tục luyện tập.",
+    "keepStudying": "Tiếp tục học! Bạn sẽ tiến bộ."
+  },
+  "languages": {
+    "en": "English",
+    "vi": "Tiếng Việt"
+  }
+}

@@ -1,4 +1,5 @@
 import { CheckCircle, XCircle } from 'lucide-react';
+import { useI18n } from '../context/I18nContext';
 
 const OPTION_LABELS = { A: 0, B: 1, C: 2, D: 3 };
 
@@ -10,6 +11,8 @@ export default function QuestionCard({
   showResult = false,
   userAnswer,
 }) {
+  const { t } = useI18n();
+
   const options = [
     { key: 'A', label: question.option_a },
     { key: 'B', label: question.option_b },
@@ -74,7 +77,7 @@ export default function QuestionCard({
 
       {showResult && question.explanation && (
         <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-          <p className="text-sm font-semibold text-amber-800 mb-1">Explanation</p>
+          <p className="text-sm font-semibold text-amber-800 mb-1">{t('questionCard.explanation')}</p>
           <p className="text-sm text-amber-700 leading-relaxed">{question.explanation}</p>
         </div>
       )}
