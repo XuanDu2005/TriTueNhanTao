@@ -2,6 +2,15 @@
 
 Upload any PDF learning material and generate AI-powered multiple-choice quizzes instantly using Google Gemini AI.
 
+## Screenshots
+
+![Preview](screenshots/preview.png)
+![Upload](screenshots/upload.png)
+![Generate](screenshots/generate.png)
+![Quiz](screenshots/quiz.png)
+![Results](screenshots/results.png)
+![Export](screenshots/export.png)
+
 ## Features
 
 - **PDF Upload** — Drag-and-drop PDF files up to 20MB
@@ -52,19 +61,6 @@ docker-compose up --build
 ### 4. Open the App
 
 Navigate to `http://localhost:3000`
-
-## Screenshots
-
-Add your screenshots to the `screenshots/` folder with these filenames:
-
-| Filename | Description |
-|----------|-------------|
-| `preview.png` | Main preview of the application |
-| `upload.png` | PDF upload interface |
-| `generate.png` | Quiz generation settings |
-| `quiz.png` | Quiz taking interface |
-| `results.png` | Quiz results page |
-| `export.png` | Export to PDF feature |
 
 ## Docker Commands
 
