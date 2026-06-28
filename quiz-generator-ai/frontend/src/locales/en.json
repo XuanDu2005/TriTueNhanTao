@@ -105,6 +105,8 @@
     "wrong": "Wrong",
     "skipped": "Skipped",
     "loading": "Loading results...",
+    "export": "Export",
+    "exportPDF": "Export to PDF",
     "errors": {
       "error": "Error",
       "couldNotLoad": "Could not load result",

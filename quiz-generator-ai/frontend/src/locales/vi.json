@@ -105,6 +105,8 @@
     "wrong": "Sai",
     "skipped": "Bỏ qua",
     "loading": "Đang tải kết quả...",
+    "export": "Xuất",
+    "exportPDF": "Xuất ra PDF",
     "errors": {
       "error": "Lỗi",
       "couldNotLoad": "Không thể tải kết quả",

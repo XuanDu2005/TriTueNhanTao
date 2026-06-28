@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AlertCircle, RotateCcw, Home, ChevronDown, ChevronUp } from 'lucide-react';
+import { AlertCircle, RotateCcw, Home, ChevronDown, ChevronUp, Download } from 'lucide-react';
 import { getResult } from '../services/api';
 import ScoreCard from '../components/ScoreCard';
 import QuestionCard from '../components/QuestionCard';
 import { useI18n } from '../context/I18nContext';
+import { exportQuizToPDF } from '../utils/exportQuiz';
 
 export default function Result() {
   const { resultId } = useParams();
   const navigate = useNavigate();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [expandedQuestions, setExpandedQuestions] = useState({});
+  const [showExportMenu, setShowExportMenu] = useState(false);
 
   useEffect(() => {
     const loadResult = async () => {
@@ -35,6 +37,13 @@ export default function Result() {
 
   const toggleQuestion = (qId) => {
     setExpandedQuestions((prev) => ({ ...prev, [qId]: !prev[qId] }));
+  };
+
+  const handleExportPDF = () => {
+    if (data) {
+      exportQuizToPDF(data, locale);
+    }
+    setShowExportMenu(false);
   };
 
   if (loading) {
@@ -82,21 +91,43 @@ export default function Result() {
         />
       </div>
 
-      <div className="flex gap-3 mb-8 animate-fade-in" style={{ animationDelay: '200ms' }}>
+      <div className="flex flex-wrap gap-3 mb-8 animate-fade-in" style={{ animationDelay: '200ms' }}>
         <button
           onClick={() => navigate('/')}
-          className="btn-secondary flex-1 flex items-center justify-center gap-2"
+          className="btn-secondary flex-1 min-w-[120px] flex items-center justify-center gap-2"
         >
           <Home className="w-4 h-4" />
           {t('result.home')}
         </button>
         <button
           onClick={() => navigate(`/generate/${data.questions[0]?.document_id || docId}`)}
-          className="btn-primary flex-1 flex items-center justify-center gap-2"
+          className="btn-primary flex-1 min-w-[120px] flex items-center justify-center gap-2"
         >
           <RotateCcw className="w-4 h-4" />
           {t('result.newQuiz')}
         </button>
+
+        <div className="relative w-full sm:w-auto">
+          <button
+            onClick={() => setShowExportMenu(!showExportMenu)}
+            className="w-full sm:w-auto px-4 py-2.5 bg-blue-600 text-white rounded-xl font-medium text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            {t('result.export')}
+          </button>
+
+          {showExportMenu && (
+            <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-10 animate-fade-in">
+              <button
+                onClick={handleExportPDF}
+                className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors"
+              >
+                <span className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-600 text-xs font-bold">PDF</span>
+                {t('result.exportPDF')}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
