@@ -2,28 +2,47 @@
 
 Upload any PDF learning material and generate AI-powered multiple-choice quizzes instantly using Google Gemini AI.
 
-## Screenshots
+<div align="center">
 
 ![Preview](screenshots/preview.png)
-![Upload](screenshots/upload.png)
-![Generate](screenshots/generate.png)
-![Quiz](screenshots/quiz.png)
-![Results](screenshots/results.png)
-![Export](screenshots/export.png)
 
-## Features
+</div>
 
-- **PDF Upload** — Drag-and-drop PDF files up to 20MB
-- **AI Quiz Generation** — Gemini AI reads your document and creates tailored questions
-- **Adaptive Difficulty** — Choose Easy, Medium, or Hard difficulty levels
-- **Flexible Question Count** — Generate 5, 10, or 20 questions per quiz
-- **Interactive Quiz** — One question per screen with progress tracking
-- **Instant Results** — Get your score immediately with percentage breakdown
-- **Detailed Review** — See correct answers alongside AI-generated explanations
-- **Export Quiz** — Export quiz results to PDF for offline review
-- **Responsive Design** — Works on desktop and mobile devices
+## 🎯 Features
 
-## Tech Stack
+| Feature | Description |
+|---------|-------------|
+| **PDF Upload** | Drag-and-drop PDF files up to 20MB |
+| **AI Quiz Generation** | Gemini AI reads your document and creates tailored questions |
+| **Adaptive Difficulty** | Choose Easy, Medium, or Hard difficulty levels |
+| **Flexible Question Count** | Generate 5, 10, or 20 questions per quiz |
+| **Interactive Quiz** | One question per screen with progress tracking |
+| **Instant Results** | Get your score immediately with percentage breakdown |
+| **Detailed Review** | See correct answers alongside AI-generated explanations |
+| **Export Quiz** | Export quiz results to PDF for offline review |
+| **Responsive Design** | Works on desktop and mobile devices |
+
+## 📸 Screenshots
+
+### Home & Upload
+
+| Upload PDF | Generate Quiz |
+|------------|---------------|
+| ![Upload](screenshots/upload.png) | ![Generate](screenshots/generate.png) |
+
+### Quiz & Results
+
+| Take Quiz | View Results |
+|-----------|--------------|
+| ![Quiz](screenshots/quiz.png) | ![Results](screenshots/results.png) |
+
+### Export
+
+| Export to PDF |
+|---------------|
+| ![Export](screenshots/export.png) |
+
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -33,7 +52,7 @@ Upload any PDF learning material and generate AI-powered multiple-choice quizzes
 | Database | SQLite |
 | Container | Docker, Docker Compose |
 
-## Quick Start with Docker
+## 🚀 Quick Start with Docker
 
 ### Prerequisites
 
@@ -62,7 +81,15 @@ docker-compose up --build
 
 Navigate to `http://localhost:3000`
 
-## Docker Commands
+## 📋 Usage Guide
+
+1. **Upload PDF** - Drag and drop your PDF file on the home page
+2. **Generate Quiz** - Select difficulty and number of questions
+3. **Take Quiz** - Answer questions one by one
+4. **View Results** - See your score and review answers
+5. **Export PDF** - Download your quiz results
+
+## 🐳 Docker Commands
 
 | Command | Description |
 |---------|-------------|
@@ -72,7 +99,7 @@ Navigate to `http://localhost:3000`
 | `docker-compose logs -f` | View live logs |
 | `docker-compose ps` | Check container status |
 
-## API Endpoints
+## 🔌 API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -83,10 +110,17 @@ Navigate to `http://localhost:3000`
 | GET | `/api/result/<id>` | Get detailed results |
 | GET | `/api/health` | Health check |
 
-## Troubleshooting
+## ❓ Troubleshooting
 
-- **Docker build fails**: Ensure Docker is running and WSL2 is enabled (Windows)
-- **Gemini API errors**: Check `GEMINI_API_KEY` is correct
-- **PDF extraction fails**: PDF must have selectable text (not scanned images)
-- **Upload failed**: Check backend is healthy (`docker-compose ps`)
-- **File too large**: Maximum upload size is 20MB
+| Problem | Solution |
+|---------|----------|
+| **Docker build fails** | Ensure Docker is running. On Windows, make sure WSL2 is enabled. |
+| **Gemini API errors** | Verify your `GEMINI_API_KEY` in `backend/.env` is correct and has available quota. |
+| **PDF text extraction fails** | The PDF must contain selectable text (not scanned images). Scanned PDFs require OCR which is not supported. |
+| **Frontend shows "Upload failed"** | Check that the backend container is healthy (`docker-compose ps`) and that port 5000 is not already in use. |
+| **File too large** | The maximum upload size is 20MB. |
+| **PDF export not working** | Ensure you're using the latest version. Check browser console for errors. |
+
+## 📄 License
+
+MIT License
